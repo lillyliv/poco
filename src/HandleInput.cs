@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +7,15 @@ namespace poco
     class HandleInput
     {
         public static void main()
+        {
+            checkModifiers();
+            if (specialKeys() == true) return;
+            if (arrowKeys() == true) return;
+
+            consoleStuff.writeAt(Program.key.ToString(), Program.cursorx, Program.cursory);
+            Program.cursorx++;
+        }
+        private static void checkModifiers()
         {
             if ((Program.cki.Modifiers & ConsoleModifiers.Alt) != 0)
             {
@@ -32,16 +41,21 @@ namespace poco
             {
                 Program.control = false;
             }
+        }
+        private static bool specialKeys()
+        {
             if (Program.keyInfo.Key == ConsoleKey.Backspace && Program.cursorx != 0)
             {
                 consoleStuff.writeAt(" ", Program.cursorx - 1, Program.cursory);
                 Program.cursorx -= 1;
                 Console.SetCursorPosition(Program.cursorx, Program.cursory);
+                return true;
             }
             else if (Program.keyInfo.Key == ConsoleKey.Backspace && Program.cursorx == 0 && Program.cursory != 0)
             {
                 consoleStuff.writeAt(" ", Program.cursorx, Program.cursory + 1);
                 Program.cursory -= 1;
+                return true;
 
             }
             else if (Program.keyInfo.Key == ConsoleKey.Enter)
@@ -49,14 +63,20 @@ namespace poco
                 consoleStuff.writeAt("\n", Program.cursorx, Program.cursory);
                 Program.cursorx = 0;
                 Program.cursory += 1;
+                return true;
             }
-            else if (Program.keyInfo.Key == ConsoleKey.LeftArrow)
+            return false;
+        }
+        private static bool arrowKeys()
+        {
+            if (Program.keyInfo.Key == ConsoleKey.LeftArrow)
             {
                 if (Program.cursorx == 0) { }
                 else
                 {
                     Console.SetCursorPosition(Program.cursorx - 1, Program.cursory);
                     Program.cursorx--;
+                    return true;
                 }
 
             }
@@ -67,6 +87,7 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx, Program.cursory + 1);
                     Program.cursory++;
+                    return true;
                 }
 
             }
@@ -77,6 +98,7 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx, Program.cursory - 1);
                     Program.cursory--;
+                    return true;
                 }
 
             }
@@ -87,14 +109,11 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx + 1, Program.cursory);
                     Program.cursorx++;
+                    return true;
                 }
 
             }
-            else
-            {
-                consoleStuff.writeAt(Program.key.ToString(), Program.cursorx, Program.cursory);
-                Program.cursorx++;
-            }
+            return false;
         }
     }
 }
