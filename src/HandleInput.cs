@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace poco
 {
@@ -10,8 +10,15 @@ namespace poco
             if (specialKeys() == true) return;
             if (arrowKeys() == true) return;
 
-            consoleStuff.writeAt(Program.key.ToString(), Program.cursorx, Program.cursory);
-            Program.cursorx++;
+            if (Program.control != true)
+            {
+                ConsoleFuncs.writeAt(Program.key.ToString(), Program.cursorx, Program.cursory);
+                Program.cursorx++;
+            } else
+            {
+
+            }
+            
         }
         private static void checkModifiers()
         {
@@ -44,21 +51,21 @@ namespace poco
         {
             if (Program.keyInfo.Key == ConsoleKey.Backspace && Program.cursorx != 0)
             {
-                consoleStuff.writeAt(" ", Program.cursorx - 1, Program.cursory);
+                ConsoleFuncs.writeAt(" ", Program.cursorx - 1, Program.cursory);
                 Program.cursorx -= 1;
                 Console.SetCursorPosition(Program.cursorx, Program.cursory);
                 return true;
             }
             else if (Program.keyInfo.Key == ConsoleKey.Backspace && Program.cursorx == 0 && Program.cursory != 0)
             {
-                consoleStuff.writeAt(" ", Program.cursorx, Program.cursory + 1);
+                ConsoleFuncs.writeAt(" ", Program.cursorx, Program.cursory + 1);
                 Program.cursory -= 1;
                 return true;
 
             }
             else if (Program.keyInfo.Key == ConsoleKey.Enter)
             {
-                consoleStuff.writeAt("\n", Program.cursorx, Program.cursory);
+                ConsoleFuncs.writeAt("\n", Program.cursorx, Program.cursory);
                 Program.cursorx = 0;
                 Program.cursory += 1;
                 return true;
@@ -74,9 +81,8 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx - 1, Program.cursory);
                     Program.cursorx--;
-                    return true;
                 }
-
+                return true;
             }
             else if (Program.keyInfo.Key == ConsoleKey.DownArrow)
             {
@@ -85,9 +91,8 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx, Program.cursory + 1);
                     Program.cursory++;
-                    return true;
                 }
-
+                return true;
             }
             else if (Program.keyInfo.Key == ConsoleKey.UpArrow)
             {
@@ -96,9 +101,8 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx, Program.cursory - 1);
                     Program.cursory--;
-                    return true;
                 }
-
+                return true;
             }
             else if (Program.keyInfo.Key == ConsoleKey.RightArrow)
             {
@@ -107,9 +111,8 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx + 1, Program.cursory);
                     Program.cursorx++;
-                    return true;
                 }
-
+                return true;
             }
             return false;
         }
