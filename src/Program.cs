@@ -19,6 +19,8 @@ namespace poco
         public static ushort height;
         public static ushort cursorx = 0;
         public static ushort cursory = 0;
+        public static uint globalCursorX = 0;
+        public static uint globalCursorY = 0;
 
         public static char key;
         public static ConsoleKeyInfo cki = new ConsoleKeyInfo();
@@ -28,14 +30,17 @@ namespace poco
 
         static void Main(string[] args)
         {
-            //consoleStuff.writeAt("hello world", 0, 0);
             width = (ushort)Console.WindowWidth;
             height = (ushort)Console.WindowHeight;
 
-            //ConsoleFuncs.writeLine("hello world", 1);
-            //Console.SetCursorPosition(cursorx, cursory);
+            try
+            {
+                Files.loadFile(args[0]);
+            } catch (Exception e){ }
 
-            Files.loadFile(args[0]);
+            //ConsoleFuncs.writeAtColor("hi", 0, 0, ConsoleColor.Red, ConsoleColor.Blue);
+            //ConsoleFuncs.writeAtColor("hi2", 0, 1, ConsoleColor.DarkYellow, ConsoleColor.Magenta);
+
             do
             {
                 while (Console.KeyAvailable == false)

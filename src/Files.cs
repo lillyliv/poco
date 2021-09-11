@@ -1,4 +1,4 @@
-namespace poco
+﻿namespace poco
 {
     class Files
     {

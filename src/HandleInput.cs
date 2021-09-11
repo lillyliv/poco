@@ -12,8 +12,17 @@ namespace poco
 
             if (Program.control != true)
             {
-                ConsoleFuncs.writeAt(Program.key.ToString(), Program.cursorx, Program.cursory);
-                Program.cursorx++;
+                if (Program.cursorx >= Program.width)
+                {
+                    ConsoleFuncs.writeAt(Program.key.ToString(), 0, Program.cursory+1);
+                    Program.cursorx = 1;
+                    Program.cursory++;
+                } else
+                {
+                    ConsoleFuncs.writeAt(Program.key.ToString(), Program.cursorx, Program.cursory);
+                    Program.cursorx++;
+                }
+
             } else
             {
 
@@ -81,6 +90,7 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx - 1, Program.cursory);
                     Program.cursorx--;
+                    Program.globalCursorX--;
                 }
                 return true;
             }
@@ -91,6 +101,7 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx, Program.cursory + 1);
                     Program.cursory++;
+                    Program.globalCursorY++;
                 }
                 return true;
             }
@@ -101,6 +112,7 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx, Program.cursory - 1);
                     Program.cursory--;
+                    Program.globalCursorY--;
                 }
                 return true;
             }
@@ -111,6 +123,7 @@ namespace poco
                 {
                     Console.SetCursorPosition(Program.cursorx + 1, Program.cursory);
                     Program.cursorx++;
+                    Program.globalCursorX++;
                 }
                 return true;
             }

@@ -20,6 +20,22 @@ namespace poco
                 Console.WriteLine(e.Message);
             }
         }
+        public static void writeAtColor(string s, int x, int y, ConsoleColor fore, ConsoleColor back)
+        {
+            try
+            {
+                Console.SetCursorPosition(origCol + x, origRow + y);
+                Console.ForegroundColor = fore;
+                Console.BackgroundColor = back;
+                Console.Write(s);
+                Console.ResetColor();
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+            }
+        }
         public static void writeLine(string line, ushort y)
         {
             ushort currentX = 0;
