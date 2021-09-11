@@ -1,4 +1,4 @@
-﻿namespace poco
+namespace poco
 {
     class Files
     {
@@ -21,6 +21,7 @@
         }
         public static void loadFile(string path)
         {
+            System.Console.Clear();
             string[] fileLines = readFile(path);
             ushort currentY = 0;
 
